@@ -7,12 +7,13 @@ import dataPrepro
 from matplotlib import pyplot as plt
 
 '''Time Series Plot'''
-EarthquakePlot, = plt.plot(dataPrepro.timeLine, dataPrepro.equakeList, 'r', label="Earthquake")
-TsunamiPlot, = plt.plot(dataPrepro.timeLine, dataPrepro.tsuList, 'b', label="Tsunami")
-# adding legends
-first_legend = plt.legend(handles=[EarthquakePlot], loc=1)
-ax = plt.gca().add_artist(first_legend)
-plt.legend(handles=[TsunamiPlot], loc=4)
+fig, ax = plt.subplots()
+ax.plot(dataPrepro.timeLine, dataPrepro.equakeList, 'r', label="Earthquake")
+ax.plot(dataPrepro.timeLine, dataPrepro.equakeLocationFilteredList, 'g', label="Earthquake Filtered")
+ax.plot(dataPrepro.timeLine, dataPrepro.tsuList, 'b', label="Tsunami")
+
+legend = ax.legend(loc='upper left', shadow=True, fontsize='large')
+
 plt.title('Time Series')
 plt.xlabel('Year')
 plt.ylabel('Event Counts')
