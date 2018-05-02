@@ -22,7 +22,7 @@ surfaceMagnitude = filteredData['EQ_MAG_MS']  # surfaceMagnitude data list
 # print(surfaceMagnitude)
 
 # Collect all observed tsu event in filtered data
-# tsu = filteredData[pd.notnull(filteredData['FLAG_TSUNAMI'])]
+tsuOnly = filteredData[pd.notnull(filteredData['FLAG_TSUNAMI'])]
 # print("Total observed: ",len(tsu))
 
 oriTsu = filteredData['FLAG_TSUNAMI']
