@@ -1,34 +1,34 @@
 """
 Created on 4/29/18
 
-@author: YJccccc
+@author: Jingchao Yang
 """
 import pandas as pd
 
 
 class EventObj:
-    year = 0
+    att = 0
     cont = 0
 
-    def change_year(self, new_year):
-        self.year = new_year
+    def change_att(self, new_att):
+        self.att = new_att
 
     def contEvent(self):
         self.cont += 1
 
 
-def contEventByYear(year):
-    years, eventObjs = [], []
-    for i in year:
-        if i in years:
+def contEventByAtt(att):
+    atts, eventObjs = [], []
+    for i in att:
+        if i in atts:
             for j in eventObjs:
-                if j.year == i:
+                if j.att == i:
                     j.contEvent()
 
         else:
-            years.append(i)
+            atts.append(i)
             e = EventObj()
-            e.year = i
+            e.att = i
             e.contEvent()
             eventObjs.append(e)
 
@@ -51,17 +51,17 @@ timeLine = list(range(1900, 2019))
 
 earthquake = pd.read_csv('Data/signif1900.csv')
 eYear = earthquake['YEAR']
-earthquakeEvent = contEventByYear(eYear)
+earthquakeEvent = contEventByAtt(eYear)
 
 tsu = pd.read_csv('Data/tsevent1900.csv', encoding="ISO-8859-1")
 sYear = tsu['YEAR']
-TsuEvent = contEventByYear(sYear)
+TsuEvent = contEventByAtt(sYear)
 # print("\nNumber of earthquake events from 1900 to presents",len(earthquakeEvent))
 # print("Number of tsunami events from 1900 to presents",len(TsuEvent))
 
 earthquakeLocationFilter = pd.read_csv('Data/signif1900Filtered.csv')
 eYearLocationFiltered = earthquakeLocationFilter['YEAR']
-earthquakeEventLocationFiltered = contEventByYear(eYearLocationFiltered)
+earthquakeEventLocationFiltered = contEventByAtt(eYearLocationFiltered)
 # print("Number of selected earthquake by location events from 1900 to presents",len(earthquakeEventLocationFiltered))
 
 equakeList = eventToList(earthquakeEvent)
