@@ -6,8 +6,8 @@ Created on 5/1/18
 import dataPrepro
 import pandas as pd
 
-# allData = dataPrepro.earthquake
-allData = dataPrepro.earthquakeLocationFilter
+allData = dataPrepro.earthquake
+# allData = dataPrepro.earthquakeLocationFilter
 # print(allData)
 
 # Eliminating all records without FOCAL_DEPTH
@@ -36,4 +36,4 @@ merge = pd.concat([focalDepth,surfaceMagnitude,tsu],axis=1)
 print(merge)
 
 # create new csv with filtered data, ready for further analysis
-merge.to_csv('Data/filteredLocation.csv', encoding='utf-8', index=False)
+# merge.to_csv('Data/filteredLocation.csv', encoding='utf-8', index=False)
