@@ -1,13 +1,12 @@
 """
 Created on 4/30/18
 
-@author: YJccccc
+@author: Jingchao Yang
 """
-import dataPrepro
-import dataFilter
 from matplotlib import pyplot as plt
 
 '''Time Series Plot'''
+# import dataPrepro
 # fig, ax = plt.subplots()
 # ax.plot(dataPrepro.timeLine, dataPrepro.equakeList, 'r', label="Earthquake")
 # ax.plot(dataPrepro.timeLine, dataPrepro.equakeLocationFilteredList, 'g', label="Earthquake Filtered")
@@ -21,6 +20,8 @@ from matplotlib import pyplot as plt
 # plt.show()
 
 '''Scatter Plot'''
+import dataFilter
+
 X = dataFilter.tsuOnly['EQ_MAG_MS']
 Y = dataFilter.tsuOnly['FOCAL_DEPTH']
 
