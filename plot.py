@@ -5,7 +5,10 @@ Created on 4/30/18
 """
 from matplotlib import pyplot as plt
 
-'''Time Series Plot'''
+'''Time Series Plot
+Plotting basic unfiltered time seris data 
+for earthquake and tsu event from 1900 to present
+'''
 # import dataPrepro
 # fig, ax = plt.subplots()
 # ax.plot(dataPrepro.timeLine, dataPrepro.equakeList, 'r', label="Earthquake")
@@ -19,7 +22,10 @@ from matplotlib import pyplot as plt
 # plt.ylabel('Event Counts')
 # plt.show()
 
-'''Scatter Plot'''
+'''Scatter Plot
+Plotting all earthquake caused tsu event, 
+and set x,y to surface magnitude, focal depth
+'''
 # import dataFilter
 #
 # X = dataFilter.tsuOnly['EQ_MAG_MS']
@@ -29,44 +35,38 @@ from matplotlib import pyplot as plt
 # plt.scatter(X, Y)
 # plt.xlabel("Surface Magnitude")
 # plt.ylabel("Focal Depth (km)")
-# plt.show()
+# plt.show()  # cluster is how tsu caused by specific surface magnitude, focal depth of an earthquake
 
-'''Zonal Avg. Plot'''
+'''Zonal Avg. Plot
+Plotting Zonal Average, cont number of events
+that happened in a specific latitude zone
+'''
 import zonalAverage
-
-group1= zonalAverage.earthquakeGroups
-group2= zonalAverage.tsuGroups
+# pre-process data from zonalAverage
+group1 = zonalAverage.earthquakeGroups
+group2 = zonalAverage.tsuGroups
 
 earthquakeTup = zonalAverage.getTup(group1)
 tsuTup = zonalAverage.getTup(group2)
 
-sortedearthquakeTup = sorted(earthquakeTup, key=lambda t:t[0])
-sortTsuTup = sorted(tsuTup, key=lambda t:t[0])
+# sort the event tuple list by latitude
+sortedearthquakeTup = sorted(earthquakeTup, key=lambda t: t[0])
+sortTsuTup = sorted(tsuTup, key=lambda t: t[0])
 
-eX, eY = [],[]
+eX, eY = [], []
 for et in sortedearthquakeTup:
     eX.append(et[0])
     eY.append(et[1])
 
-tX, tY = [],[]
+tX, tY = [], []
 for tt in sortTsuTup:
     tX.append(tt[0])
     tY.append(tt[1])
 
-# plt.title('Zonal Average')
-# plt.plot(eX, eY)
-# plt.plot(tX, tY)
-# plt.xlabel("Lats")
-# plt.ylabel("Counts")
-# plt.show()
-
-
 fig, ax = plt.subplots()
 ax.plot(eX, eY, 'r', label="Earthquake Count")
 ax.plot(tX, tY, 'b', label="Tsunami Count")
-
 legend = ax.legend(loc='upper left', shadow=True, fontsize='large')
-
 plt.title('Zonal Average')
 plt.xlabel('Lats')
 plt.ylabel('Event Counts')

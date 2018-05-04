@@ -21,7 +21,7 @@ surfaceMagnitude = filteredData['EQ_MAG_MS']  # surfaceMagnitude data list
 # print(focalDepth)
 # print(surfaceMagnitude)
 
-# Collect all observed tsu event in filtered data
+# Collecting all observed tsu events (by earthquake) in filtered data
 tsuOnly = filteredData[pd.notnull(filteredData['FLAG_TSUNAMI'])]
 # print("Total observed: ",len(tsu))
 
