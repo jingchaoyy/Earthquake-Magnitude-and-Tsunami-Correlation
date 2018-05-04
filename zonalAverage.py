@@ -47,8 +47,16 @@ def contEventByAtt(att):
     return eventObjs
 
 
-# earthquakeGroups = contEventByAtt(earthquakeLatNotNan)
+earthquakeGroups = contEventByAtt(earthquakeLatNotNan)
 tsuGroups = contEventByAtt(tsuLatNotNan)
-total = 0
+
+def getTup(group):  # convering ranged group to avg lat with count
+    tup = []
+    for group in group:
+        m = (group.att[0] + group.att[1]) / 2
+        tup.append((m, group.cont))
+    return tup
+
+
 
 
