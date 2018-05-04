@@ -87,16 +87,16 @@ def getAccuracy1(testSet, predictions):
                 FP +=1
             if testSet[x][-1] == 0.0:
                 FN +=1
-    Precision = TP/(TP+FP)
-    Recall = TP/(TP+FN)
-    return (correct / float(len(testSet))) * 100.0 , Precision * 100, Recall * 100
+    # Precision = TP/(TP+FP)
+    # Recall = TP/(TP+FN)
+    # return (correct / float(len(testSet))) * 100.0 , Precision * 100, Recall * 100
 
 def main():
     # prepare data
     trainingSet = []
     testSet = []
     split = 0.9
-    loadDataset('Data/filteredLocation.csv', split, trainingSet, testSet)
+    loadDataset('Data/dataCleanedForAnalysis.csv', split, trainingSet, testSet)
     print('Train set: ' + repr(len(trainingSet)))
     print('Test set: ' + repr(len(testSet)))
     # generate predictions
@@ -107,10 +107,10 @@ def main():
         result = getResponse(neighbors)
         predictions.append(result)
         print('> predicted=' + repr(result) + ', actual=' + repr(testSet[x][-1]))
-    accuracy, precision, recall = getAccuracy1(testSet, predictions)
-    print('Accuracy: ' + repr(accuracy) + '%')
-    print('Precision: ' + repr(precision) + '%')
-    print('Recall: ' + repr(recall) + '%')
-    print('f-score: ' + repr((2*precision*recall)/(precision+recall)) + '%')
+    # accuracy, precision, recall = getAccuracy1(testSet, predictions)
+    # print('Accuracy: ' + repr(accuracy) + '%')
+    # print('Precision: ' + repr(precision) + '%')
+    # print('Recall: ' + repr(recall) + '%')
+    # print('f-score: ' + repr((2*precision*recall)/(precision+recall)) + '%')
 
 main()
