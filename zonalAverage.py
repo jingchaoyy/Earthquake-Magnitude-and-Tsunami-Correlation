@@ -18,6 +18,7 @@ tsuLatNotNan = tsuLat[pd.notnull(tsuLat)]
 
 latsInterval = np.arange(-90, 100, 10)  # list for coordinate groups
 
+
 def contEventByAtt(att):
     eventObjs = []
     for i in att:
@@ -25,7 +26,7 @@ def contEventByAtt(att):
         if len(eventObjs) > 0:
             for j in eventObjs:
                 # for loop, checking if i satisfy one of objects in the eventObjs list
-                if int(float(i)*1000) in range(j.att[0]*1000, j.att[1]*1000):
+                if int(float(i) * 1000) in range(j.att[0] * 1000, j.att[1] * 1000):
                     j.contEvent()
                     flag = True  # when i satisfies one of objects in the eventObjs list, set the flag to true
 
@@ -50,13 +51,10 @@ def contEventByAtt(att):
 earthquakeGroups = contEventByAtt(earthquakeLatNotNan)
 tsuGroups = contEventByAtt(tsuLatNotNan)
 
+
 def getTup(group):  # convering ranged group to avg lat with count
     tup = []
     for group in group:
         m = (group.att[0] + group.att[1]) / 2
         tup.append((m, group.cont))
     return tup
-
-
-
-
