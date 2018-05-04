@@ -6,6 +6,7 @@ Created on 5/4/18
 
 import dataFilter
 import dataPrepro
+import pandas as pd
 
 
 # getting date info for events
@@ -48,7 +49,14 @@ for k in range(len(maxWaterHeight)):
         surMagFilter.append(surMag[k])
         fodepFilter.append(fodep[k])
 
-print(len(maxWaterHeightFilter), len(surMagFilter), len(fodepFilter))
+# print(len(maxWaterHeightFilter), len(surMagFilter), len(fodepFilter))
+
+# create csv for knn analysis
+surMagFilterpd = pd.DataFrame(surMagFilter)
+fodepFilterpd = pd.DataFrame(fodepFilter)
+maxWaterHeightFilterpd = pd.DataFrame(maxWaterHeightFilter)
+merge = pd.concat([surMagFilterpd, fodepFilterpd, maxWaterHeightFilterpd], axis=1)
+# merge.to_csv('Data/dataCleanedForAnalysis.csv', encoding='utf-8', index=False)
 
 """Autocorrelation Coefficients
 See plot.py
