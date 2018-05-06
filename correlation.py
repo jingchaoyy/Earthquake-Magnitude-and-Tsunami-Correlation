@@ -7,6 +7,7 @@ Created on 5/4/18
 import dataFilter
 import dataPrepro
 import pandas as pd
+import scipy.stats
 
 
 # getting date info for events
@@ -65,5 +66,10 @@ See plot.py
 """Pearson Correlation
 Check if the surface magnitude and focal depth of
 an earthquake truly correlated to tsunami event (using MAXIMUM_WATER_HEIGHT)"""
+
+cc1, p1 = scipy.stats.pearsonr(surMagFilterpd, maxWaterHeightFilterpd)
+cc2, p2 = scipy.stats.pearsonr(fodepFilterpd, maxWaterHeightFilterpd)
+print('\nPearson correlation coefficients for surMagFilterpd and maxWaterHeightFilterpd:', cc1, p1,
+      '\nPearson correlation coefficients for fodepFilterpd and maxWaterHeightFilterpd:', cc2, p2)
 
 """Effective Sample Size"""
