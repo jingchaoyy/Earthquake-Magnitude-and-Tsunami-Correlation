@@ -33,36 +33,41 @@ Model for earthquake surface magnitude earthquake forcal depth
 and tsunami maxWaterHeight
 """
 # earthquake land surface magnitude with tsu maxWaterHeightFilter
-model = sm.OLS(correlation.surMagFilter, correlation.maxWaterHeightFilter).fit()
+npMS = np.array(correlation.surMagFilter)
+npWH = np.array(correlation.maxWaterHeightFilter)
+
+smConstant = sm.add_constant(npMS)
+model = sm.OLS(npWH, smConstant).fit()
 sumy = model.summary()
 print(sumy)
 
 plt.subplot(211)
-plt.scatter(correlation.surMagFilter, correlation.maxWaterHeightFilter)
+plt.scatter(npMS, npWH)
 plt.title("Linear Regression")
 plt.xlabel("Surface Magnitude")
 plt.ylabel("Tsu Max Water Height (m)")
 
-npMS = np.array(correlation.surMagFilter)
 lr = LinearRegression()
-lr.fit(npMS.reshape(-1, 1), correlation.maxWaterHeightFilter)
+lr.fit(npMS.reshape(-1, 1), npWH)
 
 y_pred = lr.predict(npMS.reshape(-1, 1))
 plt.plot(npMS, y_pred, color='red')
 
 # earthquake forcal depth with tsu maxWaterHeightFilter
-model2 = sm.OLS(correlation.fodepFilter, correlation.maxWaterHeightFilter).fit()
+npFD = np.array(correlation.fodepFilter)
+
+fdConstant = sm.add_constant(npFD)
+model2 = sm.OLS(npWH, fdConstant).fit()
 sumy2 = model2.summary()
 print(sumy2)
 
 plt.subplot(212)
-plt.scatter(correlation.fodepFilter, correlation.maxWaterHeightFilter)
+plt.scatter(npFD, npWH)
 plt.xlabel("Forcal Depth (km)")
 plt.ylabel("Tsu Max Water Height (m)")
 
-npFD = np.array(correlation.fodepFilter)
 lr2 = LinearRegression()
-lr2.fit(npFD.reshape(-1, 1), correlation.maxWaterHeightFilter)
+lr2.fit(npFD.reshape(-1, 1), npWH)
 
 y_pred2 = lr2.predict(npFD.reshape(-1, 1))
 plt.plot(npFD, y_pred2, color='red')
