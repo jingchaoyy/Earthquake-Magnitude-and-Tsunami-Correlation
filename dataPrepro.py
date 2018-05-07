@@ -102,3 +102,10 @@ def contEventByAttWithInterval(interval, att):
                     eventObjs.append(e)
 
     return eventObjs
+
+def getTup(group):  # convering ranged group to avg lat with count
+    tup = []
+    for group in group:
+        m = (group.att[0] + group.att[1]) / 2
+        tup.append((m, group.cont))
+    return tup

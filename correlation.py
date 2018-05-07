@@ -90,6 +90,30 @@ print('\nSpearman’s rank cc for surMagFilterpd and maxWaterHeightFilterpd:', s
       '\nSpearman’s rank cc for fodepFilterpd and maxWaterHeightFilterpd:', scc2, 'p-value:', sp2)
 
 """Sum MWH"""
-dataInterval = np.arange(0, 190, 10)
-print(dataInterval)
+msInterval = np.arange(0, 10, 1)
+fdInterval = np.arange(0, 190, 10)
 
+msIntervalCount = dataPrepro.contEventByAttWithInterval(msInterval,surMagFilter)
+fdIntervalCount = dataPrepro.contEventByAttWithInterval(fdInterval,fodepFilter)
+
+msIntervalTup = dataPrepro.getTup(msIntervalCount)
+fdIntervalTup = dataPrepro.getTup(fdIntervalCount)
+
+# sort the event tuple list by latitude
+sortedMSIntervalTup = sorted(msIntervalTup, key=lambda t: t[0])
+sortFDIntervalTup = sorted(fdIntervalTup, key=lambda t: t[0])
+
+msX, msY = [], []
+for et in sortedMSIntervalTup:
+    msX.append(et[0])
+    msY.append(et[1])
+
+fdX, fdY = [], []
+for tt in sortFDIntervalTup:
+    fdX.append(tt[0])
+    fdY.append(tt[1])
+
+msIntervalcc1, msIntervalp1 = pearsonr(msInterval, msY)
+fdIntervalcc2, fdIntervalp2 = pearsonr(fdInterval, fdY)
+print('\nPearson cc for surMagFilterpd and maxWaterHeightFilterpd:', msIntervalcc1, 'p-value:', msIntervalp1,
+      '\nPearson cc for fodepFilterpd and maxWaterHeightFilterpd:', fdIntervalcc2, 'p-value:', fdIntervalp2)
