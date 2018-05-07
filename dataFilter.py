@@ -14,7 +14,7 @@ allData = dataPrepro.earthquake
 filteredData1 = allData[pd.notnull(allData['FOCAL_DEPTH'])]
 # Only records with FOCAL_DEPTH and EQ_MAG_MS get collected (useful data)
 filteredData = filteredData1[pd.notnull(filteredData1['EQ_MAG_MS'])]
-print("Total data for analysis: ", len(filteredData))
+# print("Total data for analysis: ", len(filteredData))
 
 focalDepth = filteredData['FOCAL_DEPTH']  # focalDepth data list
 surfaceMagnitude = filteredData['EQ_MAG_MS']  # surfaceMagnitude data list

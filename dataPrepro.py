@@ -49,11 +49,11 @@ def eventToList(event):
 timeLine = list(range(1900, 2019))
 # print(timeLine)
 
-earthquake = pd.read_csv('Data/signif1900.csv')
+earthquake = pd.read_csv('Data/signif1900Outlier.csv')
 eYear = earthquake['YEAR']
 earthquakeEvent = contEventByAtt(eYear)
 
-tsu = pd.read_csv('Data/tsevent1900.csv', encoding="ISO-8859-1")
+tsu = pd.read_csv('Data/tsevent1900Outlier.csv', encoding="ISO-8859-1")
 sYear = tsu['YEAR']
 TsuEvent = contEventByAtt(sYear)
 # print("\nNumber of earthquake events from 1900 to presents",len(earthquakeEvent))

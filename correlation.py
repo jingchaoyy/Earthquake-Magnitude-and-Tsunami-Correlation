@@ -50,7 +50,7 @@ for k in range(len(maxWaterHeight)):
         surMagFilter.append(surMag[k])
         fodepFilter.append(fodep[k])
 
-# print(len(maxWaterHeightFilter), len(surMagFilter), len(fodepFilter))
+print("total records after filtering:", len(maxWaterHeightFilter), len(surMagFilter), len(fodepFilter))
 
 # create csv for knn analysis
 surMagFilterpd = pd.DataFrame(surMagFilter)
@@ -69,7 +69,7 @@ an earthquake truly correlated to tsunami event (using MAXIMUM_WATER_HEIGHT)"""
 
 cc1, p1 = scipy.stats.pearsonr(surMagFilterpd, maxWaterHeightFilterpd)
 cc2, p2 = scipy.stats.pearsonr(fodepFilterpd, maxWaterHeightFilterpd)
-print('\nPearson correlation coefficients for surMagFilterpd and maxWaterHeightFilterpd:', cc1, p1,
-      '\nPearson correlation coefficients for fodepFilterpd and maxWaterHeightFilterpd:', cc2, p2)
+print('\nPearson cc for surMagFilterpd and maxWaterHeightFilterpd:', cc1, 'p-value:', p1,
+      '\nPearson cc for fodepFilterpd and maxWaterHeightFilterpd:', cc2, 'p-value:', p2)
 
 """Effective Sample Size"""
