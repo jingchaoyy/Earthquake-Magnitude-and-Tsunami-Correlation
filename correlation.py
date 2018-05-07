@@ -7,7 +7,9 @@ Created on 5/4/18
 import dataFilter
 import dataPrepro
 import pandas as pd
-import scipy.stats
+from scipy.stats import pearsonr
+from scipy.stats import spearmanr
+import numpy as np
 
 
 # getting date info for events
@@ -59,17 +61,35 @@ maxWaterHeightFilterpd = pd.DataFrame(maxWaterHeightFilter)
 merge = pd.concat([surMagFilterpd, fodepFilterpd, maxWaterHeightFilterpd], axis=1)
 # merge.to_csv('Data/dataCleanedForAnalysis.csv', encoding='utf-8', index=False)
 
+"""Time Series Correlation
+Getting the pearson cc for time series based event count
+"""
+tcc1, tp1 = pearsonr(dataPrepro.equakeList, dataPrepro.tsuList)
+# cc2, p2 = pearsonr(fodepFilterpd, maxWaterHeightFilterpd)
+print('\nPearson cc for all Earthquake and all Tsunami:', tcc1, 'p-value:', tp1)
+
 """Autocorrelation Coefficients
 See plot.py
 """
 
 """Pearson Correlation
-Check if the surface magnitude and focal depth of
-an earthquake truly correlated to tsunami event (using MAXIMUM_WATER_HEIGHT)"""
-
-cc1, p1 = scipy.stats.pearsonr(surMagFilterpd, maxWaterHeightFilterpd)
-cc2, p2 = scipy.stats.pearsonr(fodepFilterpd, maxWaterHeightFilterpd)
+Check if the a tsunami event (using MAXIMUM_WATER_HEIGHT) is
+truly correlated to the surface magnitude and focal depth of
+an earthquake"""
+cc1, p1 = pearsonr(surMagFilterpd, maxWaterHeightFilterpd)
+cc2, p2 = pearsonr(fodepFilterpd, maxWaterHeightFilterpd)
 print('\nPearson cc for surMagFilterpd and maxWaterHeightFilterpd:', cc1, 'p-value:', p1,
       '\nPearson cc for fodepFilterpd and maxWaterHeightFilterpd:', cc2, 'p-value:', p2)
 
-"""Effective Sample Size"""
+"""Spearman’s Rank Correlation
+Evaluates the monotonic relationship
+"""
+scc1, sp1 = spearmanr(surMagFilterpd, maxWaterHeightFilterpd)
+scc2, sp2 = spearmanr(fodepFilterpd, maxWaterHeightFilterpd)
+print('\nSpearman’s rank cc for surMagFilterpd and maxWaterHeightFilterpd:', scc1, 'p-value:', sp1,
+      '\nSpearman’s rank cc for fodepFilterpd and maxWaterHeightFilterpd:', scc2, 'p-value:', sp2)
+
+"""Sum MWH"""
+dataInterval = np.arange(0, 190, 10)
+print(dataInterval)
+
