@@ -8,7 +8,7 @@ import statsmodels.api as sm
 from sklearn.linear_model import LinearRegression
 import numpy as np
 from matplotlib import pyplot as plt
-import correlation
+import dataFilter
 
 """Regression model regarding simple time series"""
 # model = sm.OLS(dataPrepro.equakeList, dataPrepro.tsuList).fit()
@@ -33,8 +33,8 @@ Model for earthquake surface magnitude earthquake forcal depth
 and tsunami maxWaterHeight
 """
 # earthquake land surface magnitude with tsu maxWaterHeightFilter
-npMS = np.array(correlation.surMagFilter)
-npWH = np.array(correlation.maxWaterHeightFilter)
+npMS = np.array(dataFilter.surMagFilter)
+npWH = np.array(dataFilter.maxWaterHeightFilter)
 
 smConstant = sm.add_constant(npMS)
 model = sm.OLS(npWH, smConstant).fit()
@@ -54,7 +54,7 @@ y_pred = lr.predict(npMS.reshape(-1, 1))
 plt.plot(npMS, y_pred, color='red')
 
 # earthquake forcal depth with tsu maxWaterHeightFilter
-npFD = np.array(correlation.fodepFilter)
+npFD = np.array(dataFilter.fodepFilter)
 
 fdConstant = sm.add_constant(npFD)
 model2 = sm.OLS(npWH, fdConstant).fit()
