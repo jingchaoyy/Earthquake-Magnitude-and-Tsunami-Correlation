@@ -68,7 +68,37 @@ equakeList = eventToList(earthquakeEvent)
 tsuList = eventToList(TsuEvent)
 equakeLocationFilteredList = eventToList(earthquakeEventLocationFiltered)
 
+
 # print("\nNumber of earthquakes from 1900 to presents",equakeList)
 # print("\nNumber of tsunamis from 1900 to presents",tsuList)
 # # earthquakes that happened close to the shore
 # print("\nSelected earthquakes by location from 1900 to presents",equakeLocationFilteredList)
+
+# function that differes from contEventByAtt, contEventByAttWithInterval count events by regroup (reclassify) data first
+def contEventByAttWithInterval(interval, att):
+    eventObjs = []
+    for i in att:
+        flag = False  # set a flag to check if i satisfy one of objects in the eventObjs list
+        if len(eventObjs) > 0:
+            for j in eventObjs:
+                # for loop, checking if i satisfy one of objects in the eventObjs list
+                if int(float(i) * 1000) in range(j.att[0] * 1000, j.att[1] * 1000):
+                    j.contEvent()
+                    flag = True  # when i satisfies one of objects in the eventObjs list, set the flag to true
+
+            if flag == False:  # create new object and count if i do not satisfy any existing eventObj
+                for z in range(len(interval) - 1):
+                    if int(float(i) * 1000) in range(interval[z] * 1000, interval[z + 1] * 1000):
+                        e = EventObj()
+                        e.att = ([interval[z], interval[z + 1]])
+                        e.contEvent()
+                        eventObjs.append(e)
+        else:  # if no event object created in the eventObjectList, create one
+            for y in range(len(interval) - 1):
+                if int(float(i) * 1000) in range(interval[y] * 1000, interval[y + 1] * 1000):
+                    e = EventObj()
+                    e.att = ([interval[y], interval[y + 1]])
+                    e.contEvent()
+                    eventObjs.append(e)
+
+    return eventObjs
