@@ -41,13 +41,14 @@ and set x,y to surface magnitude, focal depth
 Plotting Zonal Average, cont number of events
 that happened in a specific latitude zone
 '''
+# import dataPrepro
 # import zonalAverage
 # # pre-process data from zonalAverage
 # group1 = zonalAverage.earthquakeGroups
 # group2 = zonalAverage.tsuGroups
 #
-# earthquakeTup = zonalAverage.getTup(group1)
-# tsuTup = zonalAverage.getTup(group2)
+# earthquakeTup = dataPrepro.getTup(group1)
+# tsuTup = dataPrepro.getTup(group2)
 #
 # # sort the event tuple list by latitude
 # sortedearthquakeTup = sorted(earthquakeTup, key=lambda t: t[0])
@@ -75,17 +76,17 @@ that happened in a specific latitude zone
 """Autocorrelation Plot
 Plotting for earthquake surface magnitude
 earthquake forcal depth and tsunami maxWaterHeight"""
-import correlation
+import dataFilter
 from statsmodels.tsa.stattools import acf
 
 # lag=N/5
-lags = int(len(correlation.surMagFilter) / 5)
+lags = int(len(dataFilter.surMagFilter) / 5)
 # adopting autocorrelation function
-acfsurMag = acf(correlation.surMagFilter, nlags=lags)
+acfsurMag = acf(dataFilter.surMagFilter, nlags=lags)
 # print('AOT autocorrelation coefficients:', acfAOT)
-acffodep = acf(correlation.fodepFilter, nlags=lags)
+acffodep = acf(dataFilter.fodepFilter, nlags=lags)
 # print('ENSO autocorrelation coefficients:', acfENSO)
-acfmaxWaterHeight = acf(correlation.maxWaterHeightFilter, nlags=lags)
+acfmaxWaterHeight = acf(dataFilter.maxWaterHeightFilter, nlags=lags)
 # print('TS autocorrelation coefficients:', acfTS)
 
 lagSeries = list(range(0, lags + 1))
@@ -102,6 +103,5 @@ plt.plot(lagSeries, acfmaxWaterHeight, label='Max Water Height')
 plt.legend(loc='best')
 plt.xlabel('Lag')
 plt.show()
-
 
 """decompose, trend"""
