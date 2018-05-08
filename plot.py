@@ -23,56 +23,57 @@ for earthquake and tsu event from 1900 to present
 # plt.show()
 
 """decompose, trend"""
-import dataPrepro
-import pandas as pd
-from statsmodels.tsa.seasonal import seasonal_decompose
-
-# get total year
-yearCont = len(dataPrepro.tsuList)
-# setup year indexs
-dates = pd.date_range('1/1/2001', periods=yearCont, freq="Y")
-# print(dates)
-
-# reindex event lists by year index
-tsupd = pd.DataFrame(dataPrepro.tsuList, index=dates)
-equakepd = pd.DataFrame(dataPrepro.equakeList, index=dates)
-equakeLocationFilteredpd = pd.DataFrame(dataPrepro.equakeLocationFilteredList, index=dates)
-
-decompositionTsu = seasonal_decompose(tsupd)
-decompositionEquake = seasonal_decompose(equakepd)
-decompositionEquakeFiltered = seasonal_decompose(equakeLocationFilteredpd)
-
-trendEquake = decompositionEquake.trend
-trendEquakeFiltered = decompositionEquakeFiltered.trend
-trendTsu = decompositionTsu.trend
-
-
-fig, ax = plt.subplots()
-ax.plot(trendEquake, 'r', label="Earthquake")
-ax.plot(trendEquakeFiltered, 'g', label="Earthquake Filtered")
-ax.plot(trendTsu, 'b', label="Tsu")
-
-legend = ax.legend(loc='upper left', shadow=True, fontsize='large')
-
-plt.title('Trend')
-plt.xlabel('Year')
-plt.ylabel('Event Counts')
-plt.show()
+# import dataPrepro
+# import pandas as pd
+# from statsmodels.tsa.seasonal import seasonal_decompose
+#
+# # get total year
+# yearCont = len(dataPrepro.tsuList)
+# # setup year indexs
+# dates = pd.date_range('1/1/1900', periods=yearCont, freq="Y")
+# # print(dates)
+#
+# # reindex event lists by year index
+# tsupd = pd.DataFrame(dataPrepro.tsuList, index=dates)
+# print(tsupd)
+# equakepd = pd.DataFrame(dataPrepro.equakeList, index=dates)
+# equakeLocationFilteredpd = pd.DataFrame(dataPrepro.equakeLocationFilteredList, index=dates)
+#
+# decompositionTsu = seasonal_decompose(tsupd)
+# decompositionEquake = seasonal_decompose(equakepd)
+# decompositionEquakeFiltered = seasonal_decompose(equakeLocationFilteredpd)
+#
+# trendEquake = decompositionEquake.trend
+# trendEquakeFiltered = decompositionEquakeFiltered.trend
+# trendTsu = decompositionTsu.trend
+#
+#
+# fig, ax = plt.subplots()
+# ax.plot(trendEquake, 'r', label="Earthquake")
+# ax.plot(trendEquakeFiltered, 'g', label="Earthquake Filtered")
+# ax.plot(trendTsu, 'b', label="Tsu")
+#
+# legend = ax.legend(loc='upper left', shadow=True, fontsize='large')
+#
+# plt.title('Trend')
+# plt.xlabel('Year')
+# plt.ylabel('Event Counts')
+# plt.show()
 
 '''Scatter Plot
 Plotting all earthquake caused tsu event, 
 and set x,y to surface magnitude, focal depth
 '''
-# import dataFilter
-#
-# X = dataFilter.tsuOnly['EQ_MAG_MS']
-# Y = dataFilter.tsuOnly['FOCAL_DEPTH']
-#
-# plt.title('Tsunami Observation Regarding Earthquake Surface Magnitude and Focal Depth')
-# plt.scatter(X, Y)
-# plt.xlabel("Surface Magnitude")
-# plt.ylabel("Focal Depth (km)")
-# plt.show()  # cluster is how tsu caused by specific surface magnitude, focal depth of an earthquake
+import dataFilter
+
+X = dataFilter.tsuOnly['EQ_MAG_MS']
+Y = dataFilter.tsuOnly['FOCAL_DEPTH']
+
+plt.title('Tsunami Observation Regarding Earthquake Surface Magnitude and Focal Depth')
+plt.scatter(X, Y)
+plt.xlabel("Surface Magnitude")
+plt.ylabel("Focal Depth (km)")
+plt.show()  # cluster is how tsu caused by specific surface magnitude, focal depth of an earthquake
 
 """Autocorrelation Plot
 Plotting for earthquake surface magnitude
