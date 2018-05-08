@@ -37,42 +37,6 @@ and set x,y to surface magnitude, focal depth
 # plt.ylabel("Focal Depth (km)")
 # plt.show()  # cluster is how tsu caused by specific surface magnitude, focal depth of an earthquake
 
-'''Zonal Avg. Plot
-Plotting Zonal Average, cont number of events
-that happened in a specific latitude zone
-'''
-# import dataPrepro
-# import zonalAverage
-# # pre-process data from zonalAverage
-# group1 = zonalAverage.earthquakeGroups
-# group2 = zonalAverage.tsuGroups
-#
-# earthquakeTup = dataPrepro.getTup(group1)
-# tsuTup = dataPrepro.getTup(group2)
-#
-# # sort the event tuple list by latitude
-# sortedearthquakeTup = sorted(earthquakeTup, key=lambda t: t[0])
-# sortTsuTup = sorted(tsuTup, key=lambda t: t[0])
-#
-# eX, eY = [], []
-# for et in sortedearthquakeTup:
-#     eX.append(et[0])
-#     eY.append(et[1])
-#
-# tX, tY = [], []
-# for tt in sortTsuTup:
-#     tX.append(tt[0])
-#     tY.append(tt[1])
-#
-# fig, ax = plt.subplots()
-# ax.plot(eX, eY, 'r', label="Earthquake Count")
-# ax.plot(tX, tY, 'b', label="Tsunami Count")
-# legend = ax.legend(loc='upper left', shadow=True, fontsize='large')
-# plt.title('Zonal Average')
-# plt.xlabel('Lats')
-# plt.ylabel('Event Counts')
-# plt.show()
-
 """Autocorrelation Plot
 Plotting for earthquake surface magnitude
 earthquake forcal depth and tsunami maxWaterHeight"""
