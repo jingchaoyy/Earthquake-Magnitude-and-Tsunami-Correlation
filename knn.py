@@ -96,7 +96,7 @@ def main():
     trainingSet = []
     testSet = []
     split = 0.9
-    loadDataset('Data/dataCleanedForAnalysis.csv', split, trainingSet, testSet)
+    loadDataset('Data/advancedDataClean.csv', split, trainingSet, testSet)
     print('Train set: ' + repr(len(trainingSet)))
     print('Test set: ' + repr(len(testSet)))
     # generate predictions
