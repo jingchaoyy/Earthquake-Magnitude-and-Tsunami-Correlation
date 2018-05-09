@@ -66,8 +66,8 @@ and set x,y to surface magnitude, focal depth
 '''
 import dataFilter
 
-X = dataFilter.tsuOnly['EQ_MAG_MS']
-Y = dataFilter.tsuOnly['FOCAL_DEPTH']
+X = dataFilter.surMagFilterpd
+Y = dataFilter.fodepFilterpd
 
 plt.title('Tsunami Observation Regarding Earthquake Surface Magnitude and Focal Depth')
 plt.scatter(X, Y)
