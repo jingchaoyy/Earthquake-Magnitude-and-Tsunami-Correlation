@@ -70,14 +70,66 @@ fdIntervalcc2, fdIntervalp2 = pearsonr(fdX, fdY)
 print('\nPearson cc for Surface_Magnitude and Tsunami_Count:', msIntervalcc1, 'p-value:', msIntervalp1,
       '\nPearson cc for Focal_Depth and Tsunami_Count:', fdIntervalcc2, 'p-value:', fdIntervalp2)
 
+"""Correlation for tsunami max water height avg by interval
+of earthquake surface magnitude and focal depth
+"""
+# group earthquake attributes with wave height
+ms_mwh = zip(dataFilter.surMagFilter, dataFilter.maxWaterHeightFilter)
+fd_mwh = zip(dataFilter.fodepFilter, dataFilter.maxWaterHeightFilter)
+
+
+# getting the average wave height by interval set to surface magnitude or focal depth
+def getAvg(interval, group):  # function that similar to contEventByAttWithInterval in dataPrepro
+    test1, test2 = [], []  # test1 for recording interval, test2 for MWH average
+    for i in group:
+        flag = False
+        if len(test1) > 0:
+            for j in range(len(test1)):
+                if int(float(i[0]) * 1000) in range(test1[j][0] * 1000, test1[j][1] * 1000):
+                    test2[j] = (test2[j] + i[1]) / 2
+                    flag = True
+            if flag == False:
+                for k in range(len(interval) - 1):
+                    if int(float(i[0]) * 1000) in range(interval[k] * 1000, interval[k + 1] * 1000):
+                        test1.append((interval[k], interval[k + 1]))
+                        test2.append(i[1])
+        else:
+            for z in range(len(interval) - 1):
+                if int(float(i[0]) * 1000) in range(interval[z] * 1000, interval[z + 1] * 1000):
+                    test1.append((interval[z], interval[z + 1]))
+                    test2.append(i[1])
+    test3 = []
+    for y in test1:
+        test3.append((y[0] + y[1]) / 2)
+
+    # sort the tuple for later regression or correlation analysis
+    sort = sorted(zip(test3, test2), key=lambda t: t[0])
+
+    # seperate the tuple
+    x, y = [], []
+    for k in sort:
+        x.append(k[0])
+        y.append(k[1])
+
+    return x, y
+
+
+ms_mwhX, ms_mwhY = getAvg(msInterval, ms_mwh)
+fd_mwhX, fd_mwhY = getAvg(fdInterval, fd_mwh)
+
+ms_mwhcc1, ms_mwhp1 = pearsonr(ms_mwhX, ms_mwhY)
+fd_mwhcc2, fd_mwhp2 = pearsonr(fd_mwhX, fd_mwhY)
+print('\nPearson cc for Surface_Magnitude and Avg Max_Water_Height:', ms_mwhcc1, 'p-value:', ms_mwhp1,
+      '\nPearson cc for Focal_Depth and Avg Max_Water_Height:', fd_mwhcc2, 'p-value:', fd_mwhp2)
+
 """Pearson Correlation
 Check if the a tsunami event (using MAXIMUM_WATER_HEIGHT) is
 truly correlated to the surface magnitude and focal depth of
 an earthquake"""
 cc1, p1 = pearsonr(dataFilter.surMagFilterpd, dataFilter.maxWaterHeightFilterpd)
 cc2, p2 = pearsonr(dataFilter.fodepFilterpd, dataFilter.maxWaterHeightFilterpd)
-print('\nPearson cc for Surface_Magnitude and Max_Water_Height:', cc1, 'p-value:', p1,
-      '\nPearson cc for Focal_Depth and Max_Water_Height:', cc2, 'p-value:', p2)
+print('\nPearson cc for Surface_Magnitude and Max_Water_Height:', cc1[0], 'p-value:', p1[0],
+      '\nPearson cc for Focal_Depth and Max_Water_Height:', cc2[0], 'p-value:', p2[0])
 
 """Spearman’s Rank Correlation
 Evaluates the monotonic relationship
