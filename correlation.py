@@ -122,6 +122,11 @@ fd_mwhcc2, fd_mwhp2 = pearsonr(fd_mwhX, fd_mwhY)
 print('\nPearson cc for Surface_Magnitude and Avg Max_Water_Height:', ms_mwhcc1, 'p-value:', ms_mwhp1,
       '\nPearson cc for Focal_Depth and Avg Max_Water_Height:', fd_mwhcc2, 'p-value:', fd_mwhp2)
 
+ms_mwhscc1, ms_mwhsp1 = spearmanr(ms_mwhX, ms_mwhY)
+fd_mwhscc2, fd_mwhsp2 = spearmanr(fd_mwhX, fd_mwhY)
+print('\nSpearman cc for Surface_Magnitude and Avg Max_Water_Height:', ms_mwhscc1, 'p-value:', ms_mwhsp1,
+      '\nSpearman cc for Focal_Depth and Avg Max_Water_Height:', fd_mwhscc2, 'p-value:', fd_mwhsp2)
+
 """Pearson Correlation
 Check if the a tsunami event (using MAXIMUM_WATER_HEIGHT) is
 truly correlated to the surface magnitude and focal depth of
